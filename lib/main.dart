@@ -43,17 +43,19 @@ class _MyHomePageState extends State<MyHomePage> {
   void _loadSharedPrefence() async{
     // Obtain shared preferences.
   final  prefs = await SharedPreferences.getInstance();
-  setState(() async{
-   _counter =  prefs.getInt('counter')!;
+  setState(() {
+   _counter =  prefs.getInt('counterToken') ?? 0 ;
   });
   }
+
+
 
   //Incrementing counter after click
 void _incrementCounter()  async {
   final prefs = await SharedPreferences.getInstance();
   setState(() {
-    _counter = (prefs.getInt('counter') ?? 0) + 1;
-    	prefs.setInt('counter', _counter);
+    _counter = (prefs.getInt('counterToken') ?? 0) + 1;
+    	prefs.setInt('counterToken', _counter);
   });
 }
 

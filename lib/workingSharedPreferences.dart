@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -32,51 +31,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- int _counter=0;
- 
-@override
+
+  int _counter = 0;
+
+  @override
   void initState() {
     super.initState();
-    _loadCounter();
+    _loadSharedPrefence();
   }
 
-void _loadCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = (prefs.getInt('counter') ?? 0 );
-    });
-}  
+  void _loadSharedPrefence() async{
+    // Obtain shared preferences.
+  final  prefs = await SharedPreferences.getInstance();
+  setState(() {
+   _counter =  prefs.getInt('counterToken') ?? 0 ;
+  });
+  }
 
-//Incrementing counter after click
+
+
+  //Incrementing counter after click
 void _incrementCounter()  async {
   final prefs = await SharedPreferences.getInstance();
   setState(() {
-    _counter = (prefs.getInt('counter') ?? 0) + 1;
-    	prefs.setInt('counter', _counter);
+    _counter = (prefs.getInt('counterToken') ?? 0) + 1;
+    	prefs.setInt('counterToken', _counter);
   });
 }
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(
-        title: Text("Shared Preferences"),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text('You have pushed the button this many times'),
-            Text(
-              '$_counter',
-              ),
-            
-          ],
-        ),
-      ),
+      body: Center(child: Text("Counter: ${_counter}"),),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: "Increment",
         child: Icon(Icons.add),
+        backgroundColor: Colors.black38,
+        onPressed: _incrementCounter,
       ),
     );
   }
